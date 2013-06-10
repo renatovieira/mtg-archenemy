@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="10" >
+   
+    <ImageView
+        android:id="@+id/deck_builder_card"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="7"
+        android:contentDescription="@string/card" />
+    
+	<ScrollView android:layout_width="fill_parent"
+	    		android:layout_height="wrap_content">
+	    		
+	    <LinearLayout android:layout_width="fill_parent"
+	    			  android:layout_height="wrap_content">
+	        
+			<EditText android:id="@+id/deck_name"
+					  android:layout_width="fill_parent"
+					  android:layout_height="wrap_content" android:inputType="text"/>
+			
+			<EditText android:id="@+id/deck_info"
+					  android:layout_width="fill_parent"
+					  android:layout_height="wrap_content" android:inputType="text"/>	    
+	        
+	    </LinearLayout>
+	
+	</ScrollView>
+
+</LinearLayout>

@@ -4,5 +4,10 @@
     <string name="app_name">MTG - Archenemy</string>
     <string name="start">Start</string>
     <string name="deck_builder">Deck Builder</string>
+    <string name="card">Card</string>
+    <string name="next_card">Deal Card</string>
+    <string name="view_ongoing">Next ongoing</string>
+    <string name="delete_ongoing">Remove from ongoing</string>
+    <string name="new_game">New Game</string>
 
 </resources>
