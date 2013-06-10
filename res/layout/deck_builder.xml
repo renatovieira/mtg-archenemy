@@ -19,11 +19,11 @@
 	    <LinearLayout android:layout_width="fill_parent"
 	    			  android:layout_height="wrap_content">
 	        
-			<EditText android:id="@+id/deck_name"
+			<EditText android:id="@+id/deck_builder_deck_name"
 					  android:layout_width="fill_parent"
 					  android:layout_height="wrap_content" android:inputType="text"/>
 			
-			<EditText android:id="@+id/deck_info"
+			<EditText android:id="@+id/deck_builder_deck_info"
 					  android:layout_width="fill_parent"
 					  android:layout_height="wrap_content" android:inputType="text"/>	    
 	        
