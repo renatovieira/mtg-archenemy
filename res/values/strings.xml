@@ -9,5 +9,7 @@
     <string name="view_ongoing">Next ongoing</string>
     <string name="delete_ongoing">Remove from ongoing</string>
     <string name="new_game">New Game</string>
+    <string name="save">Save</string>
+    <string name="back">Discard</string>
 
 </resources>

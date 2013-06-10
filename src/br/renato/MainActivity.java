@@ -1,6 +1,7 @@
 package br.renato;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ public class MainActivity extends Activity {
 		deckBuilderButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				//TODO Carrega deck builder
+				startActivity(new Intent(MainActivity.this, DeckBuilderActivity.class));
 			}
 		});
 	}
