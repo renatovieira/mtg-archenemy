@@ -13,7 +13,7 @@ import br.renato.model.Card;
 import br.renato.model.Deck;
 
 public class DeckDao extends SQLiteOpenHelper {
-	private static final int VERSION = 2;
+	private static final int VERSION = 13;
 	private static final String TABLE = "Deck";
 	private static final String[] COLS = { "id", "name", "cards" };
 	private Context context;

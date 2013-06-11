@@ -1,5 +1,6 @@
 package br.renato;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,8 +53,8 @@ public class GameplayActivity extends Activity {
 		
 		dao.close();
 		
-		discarded = new LinkedList<Card>();
-		ongoing = new LinkedList<Card>();
+		discarded = new ArrayList<Card>();
+		ongoing = new ArrayList<Card>();
 		
 		Collections.shuffle(library);
 		
@@ -74,6 +75,8 @@ public class GameplayActivity extends Activity {
 		nextButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				List<Card> toRemove = new ArrayList<Card>();
+				
 				if (library.isEmpty()) {
 					library = discarded;
 					discarded = new LinkedList<Card>();
@@ -82,9 +85,13 @@ public class GameplayActivity extends Activity {
 				
 				for (Card c : ongoing) {
 					if (c.getOngoing() == 0) {
-						ongoing.remove(c);
-						discarded.add(c);
+						toRemove.add(c);
 					}
+				}
+				
+				for (Card c : toRemove) {
+					ongoing.remove(c);
+					discarded.add(c);
 				}
 				
 				Card newCard = library.remove(0);
@@ -109,18 +116,15 @@ public class GameplayActivity extends Activity {
 		deleteOngoingButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				if (!ongoing.isEmpty()) {
-					if (ongoing.get(0).getOngoing() == 1) {
+				if (!ongoing.isEmpty() && ongoing.get(0).getOngoing() == 1) {
 						discarded.add(ongoing.remove(0));
 						
 						if (!ongoing.isEmpty()) {
 							changeCardImage(ongoing.get(0));
 						}
 						else {
-							Bitmap bmp = BitmapFactory.decodeResource(GameplayActivity.this.getResources(), R.drawable.ic_launcher);
-							card.setImageBitmap(bmp);
+							card.setImageBitmap(null);
 						}
-					}
 				}
 			}
 		});

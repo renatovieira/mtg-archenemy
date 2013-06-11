@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import br.renato.model.Card;
 
 public class CardDao extends SQLiteOpenHelper {
-	private static final int VERSION = 8;
+	private static final int VERSION = 12;
 	private static final String TABLE = "Card";
 	private static final String[] COLS = {  "id", "name", "imagefilename", "ongoing" };
 
