@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="cards">
+		<item>a_display_of_my_dark_power</item>
+		<item>all_in_good_time</item>
+		<item>all_shall_smolder_in_my_wake</item>
+		<item>approach_my_molten_realm</item>
+		<item>behold_the_power_of_destruction</item>
+		<item>choose_your_champion</item>
+		<item>dance_pathetic_marionette</item>
+		<item>embrace_my_diabolical_vision</item>
+		<item>every_hope_shall_vanish</item>
+		<item>every_last_vestige_shall_rot</item>
+		<item>evil_comes_to_fruition</item>
+		<item>feed_the_machine</item>
+		<item>i_call_on_the_ancient_magics</item>
+		<item>i_delight_in_your_convulsions</item>
+		<item>ignite_the_cloneforge</item>
+		<item>into_the_earthen_maw</item>
+		<item>introductions_are_in_order</item>
+		<item>know_naught_but_fire</item>
+		<item>look_skyward_and_despair</item>
+		<item>may_civilization_collapse</item>
+		<item>mortal_flesh_is_weak</item>
+		<item>my_crushing_masterstroke</item>
+		<item>my_genius_knows_no_bounds</item>
+		<item>my_wish_is_your_command</item>
+		<item>nature_demands_an_offering</item>
+		<item>nature_shields_its_own</item>
+		<item>nothing_can_stop_me_now</item>
+		<item>og_i_bask_in_your_silent_awe</item>
+		<item>og_i_know_all_i_see_all</item>
+		<item>og_my_undead_horde_awakens</item>
+		<item>og_the_very_soil_shall_shake</item>
+		<item>only_blood_ends_your_nightmares</item>
+		<item>realms_befitting_my_majesty</item>
+		<item>roots_of_all_evil</item>
+		<item>rotted_ones_lay_siege</item>
+		<item>surrender_your_thoughts</item>
+		<item>the_dead_shall_serve</item>
+		<item>the_fate_of_the_flammable</item>
+		<item>the_iron_guardian_stirs</item>
+		<item>the_pieces_are_coming_together</item>
+		<item>tooth_claw_and_tail</item>
+		<item>which_of_you_burns_brightest</item>
+		<item>your_fate_is_thrice_sealed</item>
+		<item>your_puny_minds_cannot_fathom</item>
+		<item>your_will_is_not_your_own</item>        
+    </string-array>
+
+</resources>
