@@ -1,5 +1,6 @@
 package br.renato;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -9,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +18,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.renato.dao.CardDao;
+import br.renato.dao.DeckDao;
 import br.renato.model.Card;
+import br.renato.model.Deck;
 
 public class DeckBuilderActivity extends Activity {
 	private ImageView cardImage;
@@ -26,6 +31,7 @@ public class DeckBuilderActivity extends Activity {
 	private Button backButton;
 	private ListView cardsList;
 	private List<Card> cards;
+	private List<RatingBar> numC = new ArrayList<RatingBar>();
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,7 +49,8 @@ public class DeckBuilderActivity extends Activity {
 		CardDao cd = new CardDao(this);
 		cards = cd.getCards();
 		cd.close();
-
+		
+		
 		ArrayAdapter<View> adapter = new ArrayAdapter<View>(this,
 				android.R.layout.simple_list_item_1) {
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -51,7 +58,7 @@ public class DeckBuilderActivity extends Activity {
 				View view = DeckBuilderActivity.this.getLayoutInflater()
 						.inflate(R.layout.deck_builder_item, null);
 				
-				RatingBar numCards = (RatingBar) view.findViewById(R.id.deck_builder_item_number);
+				numC.add(position, (RatingBar) view.findViewById(R.id.deck_builder_item_number));
 				
 				TextView cardName = (TextView) view.findViewById(R.id.deck_builder_item_name);
 				cardName.setText(card.getName());
@@ -59,8 +66,7 @@ public class DeckBuilderActivity extends Activity {
 				cardName.setOnClickListener(new View.OnClickListener() {
 					
 					public void onClick(View v) {
-						int drawableResourceId = getResources().getIdentifier(card.getImageFileName(), "drawable", getPackageName());
-						Bitmap bmp = BitmapFactory.decodeResource(DeckBuilderActivity.this.getResources(), drawableResourceId);
+						Bitmap bmp = BitmapFactory.decodeResource(DeckBuilderActivity.this.getResources(), card.getResId());
 						cardImage.setImageBitmap(bmp);
 					}
 				});
@@ -86,11 +92,44 @@ public class DeckBuilderActivity extends Activity {
 
 			public void onClick(View v) {
 				String deckName = deckNameET.getText().toString();
+				
+				if (deckName == null || deckName.isEmpty())
+					deckName = (new DeckDao(DeckBuilderActivity.this).countDecks()) + "";
 
-				// TODO Salvar o deck
-
-				startActivity(new Intent(DeckBuilderActivity.this,
-						MainActivity.class));
+				Adapter adapter = cardsList.getAdapter();
+				
+				List <String> cards = new ArrayList<String>();
+				
+				for (int i = 0; i < adapter.getCount(); i++) {
+					long cardId = adapter.getItemId(i);
+					for (int j = 0; j < (int) numC.get(i).getRating(); j++) {
+						cards.add(cardId+"");
+					}
+				}
+				
+				if (cards.size() >= 20) {
+				    StringBuilder sb = new StringBuilder();
+				    String sep = "";
+				    for(String s: cards) {
+				        sb.append(sep).append(s);
+				        sep = ",";
+				    }			    
+				    String cardsSeparatedByComma = sb.toString();
+				    
+				    Deck d = new Deck();
+				    d.setName(deckName);
+				    d.setCards(cardsSeparatedByComma);
+				    
+				    DeckDao dao = new DeckDao(DeckBuilderActivity.this);
+				    dao.insert(d);
+					
+					startActivity(new Intent(DeckBuilderActivity.this,
+							MainActivity.class));
+				}
+				
+				else {
+					Toast.makeText(DeckBuilderActivity.this, "Minimum is 20 cards", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 
@@ -104,9 +143,9 @@ public class DeckBuilderActivity extends Activity {
 
 	private void loadComponents() {
 		cardImage = (ImageView) findViewById(R.id.deck_builder_card);
-		deckNameET = (EditText) findViewById(R.id.deck_builder_deck_name);
 		saveButton = (Button) findViewById(R.id.deck_builder_save);
 		backButton = (Button) findViewById(R.id.deck_builder_back);
 		cardsList = (ListView) findViewById(R.id.deck_builder_card_list);
+		deckNameET = (EditText) findViewById(R.id.deck_builder_deck_name);		
 	}
 }

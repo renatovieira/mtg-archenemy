@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import br.renato.model.Card;
 
 public class CardDao extends SQLiteOpenHelper {
-	private static final int VERSION = 7;
+	private static final int VERSION = 8;
 	private static final String TABLE = "Card";
 	private static final String[] COLS = {  "id", "name", "imagefilename", "ongoing" };
 
@@ -68,13 +68,14 @@ public class CardDao extends SQLiteOpenHelper {
 
 	public Card searchById(String cId) {
 		Cursor c = getWritableDatabase().query(TABLE, COLS, "id=?", new String[] { String.valueOf(cId) }, null, null, null);
-		
 		Card ca = new Card();
-		ca.setId(c.getLong(0));
-		ca.setName(c.getString(1));
-		ca.setImageFileName(c.getString(2));
-		ca.setOngoing(c.getInt(3));
 		
+		if (c.moveToNext()) {
+			ca.setId(c.getLong(0));
+			ca.setName(c.getString(1));
+			ca.setImageFileName(c.getString(2));
+			ca.setOngoing(c.getInt(3));
+		}
 		return ca;
 	}
 }

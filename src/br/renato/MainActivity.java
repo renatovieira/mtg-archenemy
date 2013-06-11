@@ -1,5 +1,8 @@
 package br.renato;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,17 +14,17 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 import br.renato.dao.CardDao;
+import br.renato.dao.DeckDao;
 import br.renato.model.Card;
+import br.renato.model.Deck;
 
 public class MainActivity extends Activity {
 	private Spinner deckSelector;
-	private TextView deckName;
 	private Button startButton;
 	private Button deckBuilderButton;
-	private int selectedPosition;
+	private String selectedDeck;
+	private List<String> deckNames;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,12 +46,37 @@ public class MainActivity extends Activity {
 				MODE_PRIVATE);
 		boolean firstRun = preferences.getBoolean("isFirstRun", true);
 
-		//TODO trocar para firstRun
-		if (true) 
+		if (firstRun) {
 			insertAllCards();
+			insertDefaultDecks();
+		}
 		Editor edit = preferences.edit();
 		edit.putBoolean("isFirstRun", false);
 		edit.commit();		
+	}
+
+	private void insertDefaultDecks() {
+		DeckDao dao = new DeckDao(this);
+		
+		Deck d = new Deck();
+		
+		d.setName("Doomsday (Artifacts)");
+		d.setCards("1,4,7,11,11,13,28,28,14,14,16,38,38,22,26,39,39,32,42,43");
+		dao.insert(d);
+		
+		d.setName("Civilization (Ramp, Tramble, Def)");
+		d.setCards("9,9,10,12,13,15,16,19,24,24,25,25,32,33,33,30,42,43,44,44");
+		dao.insert(d);
+		
+		d.setName("Dragonfire (Dragon, Burn)");
+		d.setCards("2,2,3,37,27,27,13,16,17,18,18,21,23,23,32,40,41,41,42,43");
+		dao.insert(d);
+		
+		d.setName("Apocalypse (Removal, Graveyeard)"); 
+		d.setCards("5,5,6,36,36,0,8,8,13,16,20,29,31,31,32,34,34,35,42,43");
+		dao.insert(d);
+		
+		dao.close();
 	}
 
 	private void insertAllCards() {
@@ -58,8 +86,11 @@ public class MainActivity extends Activity {
 		
 		String[] cardNames = getResources().getStringArray(
 				R.array.cards);
+		
+		long count = 0;
 
-		for (String s : cardNames) {			
+		for (String s : cardNames) {
+			card.setId(count++);
 			card.setImageFileName(s + ".jpg");
 			
 			if (s.startsWith("og_")) {
@@ -92,7 +123,9 @@ public class MainActivity extends Activity {
 		startButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				//TODO Carrega a activity deck builder passando o id do deck para carregar
+				Intent i = new Intent(MainActivity.this, GameplayActivity.class);
+				i.putExtra("deckName", selectedDeck);
+				startActivity(i);
 			}
 		});
 		
@@ -105,9 +138,16 @@ public class MainActivity extends Activity {
 	}
 
 	private void configureDeckSelector() {
-		//TODO Carregar lista com nomes dos decks
-		final String[] deckNames = { "Uno", "Dos", "Tres" };
-
+		deckNames = new ArrayList<String>();
+		
+		DeckDao dao = new DeckDao(this);
+		List <Deck> decks = dao.getDecks();
+		dao.close();
+		
+		for (Deck d : decks) {
+			deckNames.add(d.getName());
+		}
+		
 		ArrayAdapter<String> decksAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_dropdown_item, deckNames);
 
@@ -117,9 +157,7 @@ public class MainActivity extends Activity {
 
 			public void onItemSelected(AdapterView<?> parentView,
 					View selectedItemView, int position, long id) {
-				//TODO Carregar deck e mostrar descrição
-				selectedPosition = position;
-				deckName.setText(deckNames[selectedPosition]);
+				selectedDeck = deckNames.get(position);
 			}
 
 			public void onNothingSelected(AdapterView<?> parentView) {
@@ -130,7 +168,6 @@ public class MainActivity extends Activity {
 
 	private void loadComponents() {
 		deckSelector = (Spinner) findViewById(R.id.deck_selector);
-		deckName = (TextView) findViewById(R.id.deck_info);
 		startButton = (Button) findViewById(R.id.start_button);
 		deckBuilderButton = (Button) findViewById(R.id.deck_builder_button);
 	}
