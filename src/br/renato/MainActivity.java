@@ -47,7 +47,6 @@ public class MainActivity extends Activity {
 				MODE_PRIVATE);
 		boolean firstRun = preferences.getBoolean("isFirstRun", true);
 
-		//TODO
 		if (firstRun) {
 			insertAllCards();
 			insertDefaultDecks();
@@ -155,7 +154,8 @@ public class MainActivity extends Activity {
 		}
 		
 		ArrayAdapter<String> decksAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_dropdown_item, deckNames);
+				android.R.layout.simple_spinner_item, deckNames);
+		decksAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		deckSelector.setAdapter(decksAdapter);
 

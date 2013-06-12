@@ -62,13 +62,23 @@ public class GameplayActivity extends Activity {
 		
 		ongoing.add(startingCard);
 		
-		changeCardImage(startingCard);	
+		changeCard(startingCard);	
 	}
 
-	private void changeCardImage(Card c) {
+	private void changeCard(Card c) {
 		int drawableResourceId = c.getResId();
 		Bitmap bmp = BitmapFactory.decodeResource(this.getResources(), drawableResourceId);
 		card.setImageBitmap(bmp);
+		
+		if (ongoing.size() < 2)
+			viewOngoingButton.setVisibility(View.INVISIBLE);
+		else
+			viewOngoingButton.setVisibility(View.VISIBLE);
+		
+		if (ongoing.size() > 1 || c.getOngoing() == 1)
+			deleteOngoingButton.setVisibility(View.VISIBLE);
+		else
+			deleteOngoingButton.setVisibility(View.INVISIBLE);
 	}
 
 	private void configureButtons() {
@@ -96,7 +106,7 @@ public class GameplayActivity extends Activity {
 				
 				Card newCard = library.remove(0);
 				ongoing.add(newCard);
-				changeCardImage(newCard);	
+				changeCard(newCard);	
 			}
 		});
 		
@@ -105,10 +115,9 @@ public class GameplayActivity extends Activity {
 			public void onClick(View v) {				
 				if (ongoing.size() > 1) {
 					Card currentCard = ongoing.remove(0);
-					
-					changeCardImage(ongoing.get(0));
-					
 					ongoing.add(currentCard);
+					
+					changeCard(ongoing.get(0));					
 				}
 			}
 		});
@@ -120,10 +129,11 @@ public class GameplayActivity extends Activity {
 						discarded.add(ongoing.remove(0));
 						
 						if (!ongoing.isEmpty()) {
-							changeCardImage(ongoing.get(0));
+							changeCard(ongoing.get(0));
 						}
 						else {
 							card.setImageBitmap(null);
+							deleteOngoingButton.setVisibility(View.INVISIBLE);
 						}
 				}
 			}

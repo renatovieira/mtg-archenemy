@@ -2,55 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/deck_builder_deck_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".50"
-        android:orientation="vertical" >
+        android:background="@android:color/white"
+        android:inputType="text" >
 
-        <EditText
-            android:id="@+id/deck_builder_deck_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:inputType="text" >
+    </EditText>
 
-            <requestFocus android:layout_width="wrap_content" />
-
-        </EditText>
-
-	   <LinearLayout
-	       android:layout_width="wrap_content"
-	       android:layout_height="wrap_content"
-	       android:orientation="horizontal" 
-	       android:layout_gravity="center">
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    android:layout_gravity="center">
 	
-	       <Button
-	           android:id="@+id/deck_builder_save"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:text="@string/save" />
+	    <Button
+	        android:id="@+id/deck_builder_save"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/save" />
 	
-	       <Button
-	           android:id="@+id/deck_builder_back"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:text="@string/back" />
-	   </LinearLayout>
+	    <Button
+	        android:id="@+id/deck_builder_back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/back" />
+	</LinearLayout>
+	
+    <ImageView
+	    android:id="@+id/deck_builder_card"
+	    android:layout_height="0dp"
+	    android:layout_width="fill_parent"
+	    android:layout_weight=".50"
+	    android:contentDescription="@string/card"/>        
+	
+	<LinearLayout android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    android:layout_gravity="center">
+	    
+	    <Button
+	        android:id="@+id/deck_builder_previous_card"
+	        android:layout_width="100dp"
+	        android:layout_height="match_parent"
+	        android:gravity="center"
+	        android:text="@string/previous"
+	        android:textSize="50dp" />
+	    
+		<NumberPicker
+		    android:id="@+id/deck_builder_number_picker"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:gravity="center"
+		    android:orientation="vertical" />
+    	
+	    <Button
+	        android:id="@+id/deck_builder_next_card"
+	        android:layout_width="100dp"
+	        android:layout_height="match_parent"
+	        android:gravity="center"
+	        android:text="@string/next"
+	        android:textSize="50dp" />
 
-        <ListView
-            android:id="@+id/deck_builder_card_list"
-            android:layout_width="fill_parent" 
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-
-   <ImageView
-       android:id="@+id/deck_builder_card"
-       android:layout_height="wrap_content"
-       android:layout_width="fill_parent"
-       android:layout_weight=".50"
-       android:contentDescription="@string/card"/>
-    
+	</LinearLayout>
+	
+	
 </LinearLayout>

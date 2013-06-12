@@ -6,10 +6,12 @@
     <string name="deck_builder">Deck Builder</string>
     <string name="card">Card</string>
     <string name="next_card">Deal Card</string>
-    <string name="view_ongoing">Next ongoing</string>
+    <string name="view_ongoing">View ongoing</string>
     <string name="delete_ongoing">Remove from ongoing</string>
     <string name="new_game">New Game</string>
     <string name="save">Save</string>
     <string name="back">Discard</string>
+    <string name="previous">&lt;</string>    
+    <string name="next">&gt;</string>
 
 </resources>
